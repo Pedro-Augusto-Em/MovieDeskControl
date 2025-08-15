@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo "========================================"
-echo "   Sistema Anydesk Control"
+echo "   Sistema Movidesk Control"
 echo "   Configuração Firebird 5.0"
 echo "========================================"
 echo

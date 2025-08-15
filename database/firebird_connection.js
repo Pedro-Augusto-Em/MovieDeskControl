@@ -7,7 +7,7 @@ const Firebird = require('node-firebird');
 const firebirdConfig = {
     host: process.env.FIREBIRD_HOST || 'localhost',
     port: process.env.FIREBIRD_PORT || 3050,
-    database: process.env.FIREBIRD_DATABASE || 'C:/AnydeskControl/database/anydesk_control.fdb',
+    database: process.env.FIREBIRD_DATABASE || 'C:/MovideskControl/database/movidesk_control.fdb',
     user: process.env.FIREBIRD_USER || 'SYSDBA',
     password: process.env.FIREBIRD_PASSWORD || 'masterkey',
     lowercase_keys: false,

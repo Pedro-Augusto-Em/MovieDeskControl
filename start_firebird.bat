@@ -1,6 +1,6 @@
 @echo off
 echo ========================================
-echo    Sistema Anydesk Control
+echo    Sistema Movidesk Control
 echo    Configuracao Firebird 5.0
 echo ========================================
 echo.

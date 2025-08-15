@@ -1,6 +1,6 @@
 @echo off
 echo ========================================
-echo    Sistema de BI - Anydesk Control
+echo    Sistema de BI - Movidesk Control
 echo ========================================
 echo.
 

@@ -1,5 +1,5 @@
 -- ========================================
--- SCHEMA DE AUTENTICAÇÃO - ANYDESK CONTROL
+-- SCHEMA DE AUTENTICAÇÃO - MOVIDESK CONTROL
 -- ========================================
 
 -- Tabela de usuários com autenticação
@@ -101,7 +101,7 @@ INSERT INTO SECURITY_SETTINGS (SETTING_KEY, SETTING_VALUE, DESCRIPTION) VALUES
 -- Inserir usuário administrador padrão
 -- Senha: Admin@123 (hash bcrypt)
 INSERT INTO USERS (USERNAME, EMAIL, PASSWORD_HASH, PASSWORD_SALT, FIRST_NAME, LAST_NAME, ROLE, IS_ACTIVE, IS_EMAIL_VERIFIED) VALUES
-('admin', 'admin@anydeskcontrol.com', '$2b$10$rQZ8K9vX2mN3pL4qR5sT6uV7wX8yZ9aA0bB1cC2dD3eE4fF5gG6hH7iI8jJ9kK0lL1mM2nN3oO4pP5qQ6rR7sS8tT9uU0vV1wW2xX3yY4zZ', 'salt_admin_123', 'Administrador', 'Sistema', 'ADMIN', TRUE, TRUE);
+('admin', 'admin@movideskcontrol.com', '$2b$10$rQZ8K9vX2mN3pL4qR5sT6uV7wX8yZ9aA0bB1cC2dD3eE4fF5gG6hH7iI8jJ9kK0lL1mM2nN3oO4pP5qQ6rR7sS8tT9uU0vV1wW2xX3yY4zZ', 'salt_admin_123', 'Administrador', 'Sistema', 'ADMIN', TRUE, TRUE);
 
 -- Comentários das tabelas
 COMMENT ON TABLE USERS IS 'Tabela de usuários com autenticação completa';

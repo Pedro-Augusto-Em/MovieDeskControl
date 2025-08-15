@@ -1,6 +1,6 @@
 -- ========================================
 -- Estrutura do Banco de Dados Firebird 5.0
--- Sistema: Anydesk Control
+-- Sistema: Movidesk Control
 -- Versão: 1.0
 -- ========================================
 
@@ -163,7 +163,7 @@ END;
 
 -- Inserir usuário padrão
 INSERT INTO USERS (USERNAME, NAME, ROLE, EMAIL) 
-VALUES ('admin', 'Administrador', 'Administrador', 'admin@anydeskcontrol.com');
+VALUES ('admin', 'Administrador', 'Administrador', 'admin@movideskcontrol.com');
 
 -- Inserir dashboard padrão
 INSERT INTO DASHBOARDS (NAME, DESCRIPTION, USER_ID, IS_DEFAULT) 

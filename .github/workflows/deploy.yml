@@ -1,4 +1,4 @@
-name: Deploy Anydesk Control
+name: Deploy Movidesk Control
 
 on:
   push:
@@ -53,20 +53,20 @@ jobs:
         force_orphan: true
         user_name: 'github-actions[bot]'
         user_email: 'github-actions[bot]@users.noreply.github.com'
-        commit_message: 'Deploy Anydesk Control - Sistema de BI'
+        commit_message: 'Deploy Movidesk Control - Sistema de BI'
     
     - name: Deploy to server
       run: |
-        echo "🚀 Deploying Anydesk Control to production server..."
+        echo "🚀 Deploying Movidesk Control to production server..."
         echo "📊 Sistema de BI para análise de tickets"
         echo "🗄️  Firebird 5.0 database"
         echo "✅ Deploy completed successfully!"
       
     - name: Notify deployment
       run: |
-        echo "🎉 Anydesk Control deployed successfully!"
-        echo "🌐 Frontend: https://${{ github.repository_owner }}.github.io/AnydeskControl/"
+        echo "🎉 Movidesk Control deployed successfully!"
+        echo "🌐 Frontend: https://${{ github.repository_owner }}.github.io/MovideskControl/"
         echo "🔧 Backend: Configure Firebird 5.0 on your server"
-        echo "📋 Database: anydesk_control.fdb"
+        echo "📋 Database: movidesk_control.fdb"
         echo "🔑 Credentials: SYSDBA/masterkey"
         echo "📍 Port: 3050"

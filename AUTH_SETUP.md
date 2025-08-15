@@ -1,8 +1,8 @@
-# 🔐 Sistema de Autenticação - Anydesk Control
+# 🔐 Sistema de Autenticação - Movidesk Control
 
 ## Visão Geral
 
-O sistema de autenticação do Anydesk Control oferece um sistema completo e seguro para gerenciamento de usuários, incluindo:
+O sistema de autenticação do Movidesk Control oferece um sistema completo e seguro para gerenciamento de usuários, incluindo:
 
 - ✅ **Registro de usuários** com validação de e-mail
 - ✅ **Login seguro** com JWT e proteção contra ataques
@@ -65,7 +65,7 @@ npm run setup
 2. **Gerar senha de aplicativo**:
    - Acesse: https://myaccount.google.com/apppasswords
    - Selecione "Mail" e "Outro (nome personalizado)"
-   - Digite "Anydesk Control" e clique em "Gerar"
+   - Digite "Movidesk Control" e clique em "Gerar"
    - Use a senha gerada no campo `SMTP_PASS`
 
 ### Outlook/Hotmail
@@ -93,7 +93,7 @@ Consulte a documentação do seu provedor de e-mail para as configurações SMTP
 ### Usuário Padrão
 
 - **Username**: `admin`
-- **E-mail**: `admin@anydeskcontrol.com`
+- **E-mail**: `admin@movideskcontrol.com`
 - **Senha**: `Admin@123`
 - **Role**: `ADMIN`
 

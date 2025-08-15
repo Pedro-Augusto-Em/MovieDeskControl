@@ -1,7 +1,7 @@
 {
-  "name": "anydesk-control-backend",
+  "name": "movidesk-control-backend",
   "version": "1.0.0",
-  "description": "Backend para o sistema Anydesk Control - BI de Tickets",
+      "description": "Backend para o sistema Movidesk Control - BI de Tickets",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
@@ -30,6 +30,6 @@
     "tickets",
     "excel"
   ],
-  "author": "Anydesk Control Team",
+      "author": "Movidesk Control Team",
   "license": "MIT"
 }

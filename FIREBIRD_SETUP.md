@@ -1,4 +1,4 @@
-# Configuração Firebird 5.0 - Anydesk Control
+# Configuração Firebird 5.0 - Movidesk Control
 
 ## 📋 Pré-requisitos
 
@@ -84,7 +84,7 @@ npm start
 isql-fb -u SYSDBA -p masterkey localhost:3050
 
 # Criar banco
-CREATE DATABASE 'C:/AnydeskControl/database/anydesk_control.fdb'
+CREATE DATABASE 'C:/MovideskControl/database/movidesk_control.fdb'
 PAGE_SIZE 4096
 DEFAULT CHARACTER SET UTF8;
 
@@ -95,13 +95,13 @@ QUIT;
 #### Usando gbak (restore)
 ```bash
 # Se você tem um backup
-gbak -r -u SYSDBA -p masterkey backup.fbk C:/AnydeskControl/database/anydesk_control.fdb
+gbak -r -u SYSDBA -p masterkey backup.fbk C:/MovideskControl/database/movidesk_control.fdb
 ```
 
 ### 2. Executar Script SQL
 ```bash
 # Conectar e executar script
-isql-fb -u SYSDBA -p masterkey localhost:3050/anydesk_control.fdb -i database/firebird_schema.sql
+isql-fb -u SYSDBA -p masterkey localhost:3050/movidesk_control.fdb -i database/firebird_schema.sql
 ```
 
 ### 3. Configurar Variáveis de Ambiente
@@ -111,7 +111,7 @@ Criar arquivo `.env` na raiz do projeto:
 # Configurações do Firebird
 FIREBIRD_HOST=localhost
 FIREBIRD_PORT=3050
-FIREBIRD_DATABASE=C:/AnydeskControl/database/anydesk_control.fdb
+FIREBIRD_DATABASE=C:/MovideskControl/database/movidesk_control.fdb
 FIREBIRD_USER=SYSDBA
 FIREBIRD_PASSWORD=masterkey
 
@@ -166,20 +166,20 @@ LogConfig = firebird.log
 #### Criar usuário específico
 ```sql
 -- Conectar como SYSDBA
-CREATE USER ANYDESK_USER PASSWORD 'anydesk123';
+CREATE USER MOVIDESK_USER PASSWORD 'movidesk123';
 
 -- Conceder permissões
-GRANT ALL ON TICKETS TO ANYDESK_USER;
-GRANT ALL ON USERS TO ANYDESK_USER;
-GRANT ALL ON DASHBOARDS TO ANYDESK_USER;
-GRANT ALL ON DASHBOARD_CHARTS TO ANYDESK_USER;
-GRANT ALL ON DATA_SOURCES TO ANYDESK_USER;
+GRANT ALL ON TICKETS TO MOVIDESK_USER;
+GRANT ALL ON USERS TO MOVIDESK_USER;
+GRANT ALL ON DASHBOARDS TO MOVIDESK_USER;
+GRANT ALL ON DASHBOARD_CHARTS TO MOVIDESK_USER;
+GRANT ALL ON DATA_SOURCES TO MOVIDESK_USER;
 ```
 
 #### Atualizar .env com novo usuário
 ```env
-FIREBIRD_USER=ANYDESK_USER
-FIREBIRD_PASSWORD=anydesk123
+FIREBIRD_USER=MOVIDESK_USER
+FIREBIRD_PASSWORD=movidesk123
 ```
 
 ### 3. Backup e Restore
@@ -189,21 +189,21 @@ FIREBIRD_PASSWORD=anydesk123
 # Script de backup (Windows)
 @echo off
 set BACKUP_DIR=C:\backups
-set DB_PATH=C:\AnydeskControl\database\anydesk_control.fdb
+set DB_PATH=C:\MovideskControl\database\movidesk_control.fdb
 set DATE=%date:~-4,4%%date:~-10,2%%date:~-7,2%
 
 if not exist %BACKUP_DIR% mkdir %BACKUP_DIR%
 
-gbak -b -u SYSDBA -p masterkey %DB_PATH% %BACKUP_DIR%\anydesk_control_%DATE%.fbk
+gbak -b -u SYSDBA -p masterkey %DB_PATH% %BACKUP_DIR%\movidesk_control_%DATE%.fbk
 
-echo Backup concluido: anydesk_control_%DATE%.fbk
+echo Backup concluido: movidesk_control_%DATE%.fbk
 ```
 
 #### Restore
 ```bash
 # Parar aplicação
 # Restaurar backup
-gbak -r -u SYSDBA -p masterkey backup.fbk C:/AnydeskControl/database/anydesk_control.fdb
+gbak -r -u SYSDBA -p masterkey backup.fbk C:/MovideskControl/database/movidesk_control.fdb
 # Reiniciar aplicação
 ```
 

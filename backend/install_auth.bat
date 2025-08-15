@@ -1,7 +1,7 @@
 @echo off
 echo ========================================
 echo    Instalando Dependencias de Autenticacao
-echo    Anydesk Control
+echo    Movidesk Control
 echo ========================================
 echo.
 

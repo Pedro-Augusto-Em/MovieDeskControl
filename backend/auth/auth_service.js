@@ -6,7 +6,7 @@ const firebird = require('../../database/firebird_connection');
 
 class AuthService {
     constructor() {
-        this.jwtSecret = process.env.JWT_SECRET || 'anydesk-control-secret-key-2024';
+        this.jwtSecret = process.env.JWT_SECRET || 'movidesk-control-secret-key-2024';
         this.jwtExpiresIn = process.env.JWT_EXPIRES_IN || '24h';
         
         // Configurar transporter de e-mail
@@ -544,16 +544,16 @@ class AuthService {
             const mailOptions = {
                 from: process.env.SMTP_USER,
                 to: user.EMAIL,
-                subject: 'Verifique seu e-mail - Anydesk Control',
+                subject: 'Verifique seu e-mail - Movidesk Control',
                 html: `
-                    <h2>Bem-vindo ao Anydesk Control!</h2>
+                    <h2>Bem-vindo ao Movidesk Control!</h2>
                     <p>Olá ${user.FIRST_NAME || user.USERNAME},</p>
                     <p>Sua conta foi criada com sucesso. Para ativá-la, clique no link abaixo:</p>
                     <p><a href="${verificationUrl}" style="background-color: #3b82f6; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px;">Verificar E-mail</a></p>
                     <p>Este link expira em 24 horas.</p>
                     <p>Se você não criou esta conta, ignore este e-mail.</p>
                     <br>
-                    <p>Atenciosamente,<br>Equipe Anydesk Control</p>
+                    <p>Atenciosamente,<br>Equipe Movidesk Control</p>
                 `
             };
             
@@ -572,7 +572,7 @@ class AuthService {
             const mailOptions = {
                 from: process.env.SMTP_USER,
                 to: user.EMAIL,
-                subject: 'Redefinir Senha - Anydesk Control',
+                subject: 'Redefinir Senha - Movidesk Control',
                 html: `
                     <h2>Redefinição de Senha</h2>
                     <p>Olá ${user.FIRST_NAME || user.USERNAME},</p>
@@ -580,8 +580,7 @@ class AuthService {
                     <p><a href="${resetUrl}" style="background-color: #ef4444; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px;">Redefinir Senha</a></p>
                     <p>Este link expira em 1 hora.</p>
                     <p>Se você não solicitou esta redefinição, ignore este e-mail.</p>
-                    <br>
-                    <p>Atenciosamente,<br>Equipe Anydesk Control</p>
+                    <p>Atenciosamente,<br>Equipe Movidesk Control</p>
                 `
             };
             

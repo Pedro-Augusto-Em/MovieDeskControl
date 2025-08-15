@@ -10,7 +10,7 @@ const firebird = require('./firebird_connection');
 
 console.log('========================================');
 console.log('   Configuração Firebird 5.0');
-console.log('   Sistema: Anydesk Control');
+console.log('   Sistema: Movidesk Control');
 console.log('========================================');
 console.log('');
 
@@ -119,13 +119,13 @@ function createEnvFile() {
     
     if (!fs.existsSync(envPath)) {
         const envContent = `# ========================================
-# Configuração Firebird 5.0 - Anydesk Control
+# Configuração Firebird 5.0 - Movidesk Control
 # ========================================
 
 # Configurações do Firebird
 FIREBIRD_HOST=localhost
 FIREBIRD_PORT=3050
-FIREBIRD_DATABASE=C:/AnydeskControl/database/anydesk_control.fdb
+FIREBIRD_DATABASE=C:/MovideskControl/database/movidesk_control.fdb
 FIREBIRD_USER=SYSDBA
 FIREBIRD_PASSWORD=masterkey
 

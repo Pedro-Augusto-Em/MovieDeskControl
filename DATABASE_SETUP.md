@@ -1,4 +1,4 @@
-# Configuração de Banco de Dados - Anydesk Control
+# Configuração de Banco de Dados - Movidesk Control
 
 ## 🗄️ Banco de Dados Atual
 O sistema atualmente usa **dados em memória** para facilitar o desenvolvimento e testes.

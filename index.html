@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anydesk Control - Sistema de BI</title>
+    <title>Movidesk Control - Sistema de BI</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="config.js"></script>
     
     <style>
         /* Animações personalizadas */
@@ -312,22 +313,26 @@
             position: fixed;
             top: 20px;
             left: 20px;
-            background: #dc2626;
-            padding: 8px 16px;
-            border-radius: 20px;
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            padding: 12px 20px;
+            border-radius: 25px;
             z-index: 100002;
             cursor: pointer;
-            font-size: 14px;
+            font-size: 16px;
             transition: all 0.3s ease;
             color: #ffffff;
-            font-weight: 600;
+            font-weight: 700;
             border: 2px solid #b91c1c;
+            box-shadow: 0 6px 20px rgba(239, 68, 68, 0.4), 0 0 15px rgba(239, 68, 68, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
         
         .tutorial-skip:hover {
-            background: #b91c1c;
-            transform: scale(1.05);
-            box-shadow: 0 4px 12px rgba(220, 38, 38, 0.4);
+            background: linear-gradient(135deg, #b91c1c, #991b1b);
+            transform: scale(1.08);
+            box-shadow: 0 8px 25px rgba(239, 68, 68, 0.6), 0 0 25px rgba(239, 68, 68, 0.4);
+            border-color: #7f1d1d;
         }
         
         .tutorial-button {
@@ -542,18 +547,18 @@
         }
         
         /* Garantir que os gráficos não estiquem infinitamente */
-        .bg-gray-800 {
+        .bg-white {
             overflow: hidden;
         }
         
         /* Corrigir altura dos containers de gráficos */
-        .bg-gray-800 canvas {
+        .bg-white canvas {
             height: 200px !important;
             max-height: 200px !important;
         }
     </style>
 </head>
-<body class="bg-gray-900 text-white min-h-screen">
+<body class="bg-gray-50 text-gray-900 min-h-screen">
     <!-- Overlay do Tutorial -->
     <div id="tutorialOverlay" class="tutorial-overlay"></div>
     
@@ -575,7 +580,7 @@
             <div class="tutorial-modal-icon">
                 <i class="fas fa-graduation-cap"></i>
             </div>
-            <div class="tutorial-modal-title">Bem-vindo ao Anydesk Control!</div>
+            <div class="tutorial-modal-title">Bem-vindo ao Movidesk Control!</div>
             <div class="tutorial-modal-subtitle">Sistema de Business Intelligence para Análise de Tickets</div>
         </div>
         
@@ -608,44 +613,56 @@
             </div>
         </div>
         
-        <div class="tutorial-modal-actions">
-            <button class="tutorial-button secondary" onclick="skipTutorial()">
-                <i class="fas fa-times mr-2"></i>
-                Pular Tutorial
-            </button>
-            <button class="tutorial-button" onclick="startTutorial()">
-                <i class="fas fa-play mr-2"></i>
-                Começar Tutorial
-            </button>
-        </div>
+                        <div class="tutorial-modal-actions">
+                    <button class="tutorial-button secondary" onclick="skipTutorial()" style="background-color: #ef4444; border-color: #dc2626;">
+                        <i class="fas fa-times mr-2"></i>
+                        Pular Tutorial
+                    </button>
+                    <button class="tutorial-button" onclick="startTutorial()">
+                        <i class="fas fa-play mr-2"></i>
+                        Começar Tutorial
+                    </button>
+                </div>
+                <div class="text-center mt-4">
+                    <button class="text-red-500 hover:text-red-700 underline text-sm" onclick="skipTutorial()">
+                        <i class="fas fa-fast-forward mr-1"></i>
+                        Pular Tutorial Completamente
+                    </button>
+                </div>
     </div>
 
     <!-- Header -->
-    <header class="bg-gray-800 shadow-lg">
+    <header class="bg-white shadow-lg border-b border-gray-200">
         <div class="container mx-auto px-6 py-4">
             <div class="flex justify-between items-center">
                 <div class="flex items-center space-x-4">
-                    <div class="text-2xl font-bold text-blue-400">
+                    <div class="text-2xl font-bold text-blue-600">
                         <i class="fas fa-chart-line mr-2"></i>
-                        Anydesk Control
+                        Movidesk Control
                     </div>
-                    <span class="text-sm text-gray-400">Sistema de BI</span>
+                    <span class="text-sm text-gray-600">Sistema de BI</span>
                 </div>
                 
                 <div class="flex items-center space-x-4">
                     <!-- Seletor de Dados -->
                     <div class="flex items-center space-x-2">
-                        <label class="text-gray-300 text-sm">Dados:</label>
-                        <select id="dataSourceSelector" class="bg-gray-700 border border-gray-600 rounded px-3 py-2 text-white text-sm">
+                        <label class="text-gray-700 text-sm">Dados:</label>
+                        <select id="dataSourceSelector" class="bg-white border border-gray-300 rounded px-3 py-2 text-gray-900 text-sm focus:border-blue-500 focus:outline-none">
                             <option value="">Selecione os dados</option>
                         </select>
                     </div>
                     
-                    <!-- Botão Tutorial -->
-                    <button id="tutorialBtn" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors duration-200 flex items-center">
-                        <i class="fas fa-graduation-cap mr-2"></i>
-                        Tutorial
-                    </button>
+                                    <!-- Botão Tutorial -->
+                <button id="tutorialBtn" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors duration-200 flex items-center">
+                    <i class="fas fa-graduation-cap mr-2"></i>
+                    Tutorial
+                </button>
+                
+                <!-- Botão Pular Tutorial (visível apenas quando o tutorial estiver ativo) -->
+                <button id="skipTutorialBtn" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg transition-colors duration-200 flex items-center ml-2" style="display: none;" onclick="skipTutorial()">
+                    <i class="fas fa-fast-forward mr-2"></i>
+                    Pular Tutorial
+                </button>
                     
                     <!-- Botão Importar Excel -->
                     <button id="importExcelBtn" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg transition-colors duration-200 flex items-center">
@@ -654,7 +671,7 @@
                     </button>
                     
                     <!-- Botão Configurações -->
-                    <button id="settingsBtn" class="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-lg transition-colors duration-200">
+                    <button id="settingsBtn" class="bg-gray-200 hover:bg-gray-300 text-gray-700 px-4 py-2 rounded-lg transition-colors duration-200">
                         <i class="fas fa-cog"></i>
                     </button>
                 </div>
@@ -666,77 +683,77 @@
      <main class="container mx-auto px-6 py-8">
          <!-- Cards de Resumo -->
          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-             <div class="bg-gray-800 rounded-lg p-6 shadow-lg hover:bg-gray-700 transition-colors cursor-pointer" data-stat="total" onclick="openTicketsModal('all')">
+             <div class="bg-white rounded-lg p-6 shadow-lg hover:bg-gray-50 transition-colors cursor-pointer border border-gray-200" data-stat="total" onclick="openTicketsModal('all')">
                  <div class="flex items-center">
                      <div class="p-3 rounded-full bg-blue-500 bg-opacity-10">
-                         <i class="fas fa-ticket-alt text-blue-400 text-xl"></i>
+                         <i class="fas fa-ticket-alt text-blue-600 text-xl"></i>
                      </div>
                      <div class="ml-4">
-                         <p class="text-sm font-medium text-gray-400">Total de Tickets</p>
-                         <p class="text-2xl font-semibold text-white" id="totalTicketsCard">0</p>
+                         <p class="text-sm font-medium text-gray-600">Total de Tickets</p>
+                         <p class="text-2xl font-semibold text-gray-900" id="totalTicketsCard">0</p>
                      </div>
                  </div>
              </div>
              
-             <div class="bg-gray-800 rounded-lg p-6 shadow-lg hover:bg-gray-700 transition-colors cursor-pointer" data-stat="abertos" onclick="openTicketsModal('open')">
+             <div class="bg-white rounded-lg p-6 shadow-lg hover:bg-gray-50 transition-colors cursor-pointer border border-gray-200" data-stat="abertos" onclick="openTicketsModal('open')">
                  <div class="flex items-center">
                      <div class="p-3 rounded-full bg-yellow-500 bg-opacity-10">
-                         <i class="fas fa-clock text-yellow-400 text-xl"></i>
+                         <i class="fas fa-clock text-yellow-600 text-xl"></i>
                      </div>
                      <div class="ml-4">
-                         <p class="text-sm font-medium text-gray-400">Em Aberto</p>
-                         <p class="text-2xl font-semibold text-white" id="ticketsAbertosCard">0</p>
+                         <p class="text-sm font-medium text-gray-600">Em Aberto</p>
+                         <p class="text-2xl font-semibold text-gray-900" id="ticketsAbertosCard">0</p>
                      </div>
                  </div>
              </div>
              
-             <div class="bg-gray-800 rounded-lg p-6 shadow-lg hover:bg-gray-700 transition-colors cursor-pointer" data-stat="resolvidos" onclick="openTicketsModal('resolved')">
+             <div class="bg-white rounded-lg p-6 shadow-lg hover:bg-gray-50 transition-colors cursor-pointer border border-gray-200" data-stat="resolvidos" onclick="openTicketsModal('resolved')">
                  <div class="flex items-center">
                      <div class="p-3 rounded-full bg-green-500 bg-opacity-10">
-                         <i class="fas fa-check-circle text-green-400 text-xl"></i>
+                         <i class="fas fa-check-circle text-green-600 text-xl"></i>
                      </div>
                      <div class="ml-4">
-                         <p class="text-sm font-medium text-gray-400">Resolvidos</p>
-                         <p class="text-2xl font-semibold text-white" id="ticketsResolvidosCard">0</p>
+                         <p class="text-sm font-medium text-gray-600">Resolvidos</p>
+                         <p class="text-2xl font-semibold text-gray-900" id="ticketsResolvidosCard">0</p>
                      </div>
                  </div>
              </div>
              
-             <div class="bg-gray-800 rounded-lg p-6 shadow-lg hover:bg-gray-700 transition-colors cursor-pointer" data-stat="dataSources" onclick="openDataSourcesModal()">
+             <div class="bg-white rounded-lg p-6 shadow-lg hover:bg-gray-50 transition-colors cursor-pointer border border-gray-200" data-stat="dataSources" onclick="openDataSourcesModal()">
                  <div class="flex items-center">
                      <div class="p-3 rounded-full bg-purple-500 bg-opacity-10">
-                         <i class="fas fa-database text-purple-400 text-xl"></i>
+                         <i class="fas fa-database text-purple-600 text-xl"></i>
                      </div>
                      <div class="ml-4">
-                         <p class="text-sm font-medium text-gray-400">Dados Importados</p>
-                         <p class="text-2xl font-semibold text-white" id="dataSourcesCard">0</p>
+                         <p class="text-sm font-medium text-gray-600">Dados Importados</p>
+                         <p class="text-2xl font-semibold text-gray-900" id="dataSourcesCard">0</p>
                      </div>
                  </div>
              </div>
          </div>
          
          <!-- Seção de Estatísticas Detalhadas -->
-         <div class="bg-gray-800 rounded-lg p-6 shadow-lg mb-6">
-             <h3 class="text-lg font-semibold text-blue-400 mb-4">
+         <div class="bg-white rounded-lg p-6 shadow-lg mb-6 border border-gray-200">
+             <h3 class="text-lg font-semibold text-blue-600 mb-4">
                  <i class="fas fa-chart-line mr-2"></i>
                  Estatísticas Detalhadas
              </h3>
              <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                  <div class="text-center">
-                     <div class="text-2xl font-bold text-green-400" id="avgResolutionTime">0h</div>
-                     <div class="text-sm text-gray-400">Tempo Médio de Resolução</div>
+                     <div class="text-2xl font-bold text-green-600" id="avgResolutionTime">0h</div>
+                     <div class="text-sm text-gray-600">Tempo Médio de Resolução</div>
                  </div>
                  <div class="text-center">
-                     <div class="text-2xl font-bold text-yellow-400" id="criticalTickets">0</div>
-                     <div class="text-sm text-gray-400">Tickets Críticos</div>
+                     <div class="text-2xl font-bold text-yellow-600" id="criticalTickets">0</div>
+                     <div class="text-sm text-gray-600">Tickets Críticos</div>
                  </div>
                  <div class="text-center">
-                     <div class="text-2xl font-bold text-red-400" id="highPriorityTickets">0</div>
-                     <div class="text-sm text-gray-400">Alta Prioridade</div>
+                     <div class="text-2xl font-bold text-red-600" id="highPriorityTickets">0</div>
+                     <div class="text-sm text-gray-600">Alta Prioridade</div>
                  </div>
                  <div class="text-center">
-                     <div class="text-2xl font-bold text-blue-400" id="activeResponsibles">0</div>
-                     <div class="text-sm text-gray-400">Responsáveis Ativos</div>
+                     <div class="text-2xl font-bold text-blue-600" id="activeResponsibles">0</div>
+                     <div class="text-sm text-gray-600">Responsáveis Ativos</div>
                  </div>
              </div>
          </div>
@@ -744,8 +761,8 @@
          <!-- Dashboard Controls -->
          <div class="flex justify-between items-center mb-6">
              <div class="flex items-center space-x-4">
-                 <h2 class="text-2xl font-bold text-white">Dashboard</h2>
-                 <select id="dashboardSelector" class="bg-gray-700 text-white px-4 py-2 rounded-lg border border-gray-600 focus:border-blue-500 focus:outline-none">
+                 <h2 class="text-2xl font-bold text-gray-900">Dashboard</h2>
+                 <select id="dashboardSelector" class="bg-white text-gray-900 px-4 py-2 rounded-lg border border-gray-300 focus:border-blue-500 focus:outline-none">
                      <option value="main">Dashboard Principal</option>
                  </select>
              </div>
@@ -764,18 +781,18 @@
          <!-- Dashboard Grid -->
          <div id="dashboardGrid" class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
             <!-- Gráfico 1: Tickets por Status -->
-            <div id="chart1" class="bg-gray-800 rounded-lg p-6 shadow-lg cursor-move">
+            <div id="chart1" class="bg-white rounded-lg p-6 shadow-lg cursor-move border border-gray-200">
                 <div class="flex justify-between items-center mb-4">
-                                             <h3 class="text-lg font-semibold text-blue-400 chart-header">
+                                             <h3 class="text-lg font-semibold text-blue-600 chart-header">
                              <i class="fas fa-chart-pie mr-2"></i>
                              Tickets por Status
                              <i class="fas fa-info-circle text-blue-500 ml-2 cursor-help" title="Mostra a distribuição dos tickets por status atual (Aberto, Em Andamento, Resolvido, Fechado). Útil para identificar gargalos no processo."></i>
                          </h3>
                          <div class="flex space-x-2">
-                             <button class="text-gray-400 hover:text-white transition-colors" onclick="openChartSettings('statusChart', 'Tickets por Status')">
+                             <button class="text-gray-600 hover:text-gray-900 transition-colors" onclick="openChartSettings('statusChart', 'Tickets por Status')">
                                  <i class="fas fa-edit"></i>
                              </button>
-                             <button class="text-gray-400 hover:text-white transition-colors" onclick="expandChart('statusChart')">
+                             <button class="text-gray-600 hover:text-gray-900 transition-colors" onclick="expandChart('statusChart')">
                                  <i class="fas fa-expand"></i>
                              </button>
                          </div>
@@ -784,18 +801,18 @@
             </div>
 
             <!-- Gráfico 2: Tickets por Responsável -->
-            <div id="chart2" class="bg-gray-800 rounded-lg p-6 shadow-lg cursor-move">
+            <div id="chart2" class="bg-white rounded-lg p-6 shadow-lg cursor-move border border-gray-200">
                 <div class="flex justify-between items-center mb-4">
-                                             <h3 class="text-lg font-semibold text-green-400 chart-header">
+                                             <h3 class="text-lg font-semibold text-green-600 chart-header">
                              <i class="fas fa-users mr-2"></i>
                              Tickets por Responsável
                              <i class="fas fa-info-circle text-green-500 ml-2 cursor-help" title="Exibe a quantidade de tickets por responsável. Ajuda a identificar sobrecarga de trabalho e distribuição de tarefas."></i>
                          </h3>
                          <div class="flex space-x-2">
-                             <button class="text-gray-400 hover:text-white transition-colors" onclick="openChartSettings('responsavelChart', 'Tickets por Responsável')">
+                             <button class="text-gray-600 hover:text-gray-900 transition-colors" onclick="openChartSettings('responsavelChart', 'Tickets por Responsável')">
                                  <i class="fas fa-edit"></i>
                              </button>
-                             <button class="text-gray-400 hover:text-white transition-colors" onclick="expandChart('responsavelChart')">
+                             <button class="text-gray-600 hover:text-gray-900 transition-colors" onclick="expandChart('responsavelChart')">
                                  <i class="fas fa-expand"></i>
                              </button>
                          </div>
@@ -804,18 +821,18 @@
             </div>
 
             <!-- Gráfico 3: Tempo de Resolução -->
-            <div id="chart3" class="bg-gray-800 rounded-lg p-6 shadow-lg cursor-move">
+            <div id="chart3" class="bg-white rounded-lg p-6 shadow-lg cursor-move border border-gray-200">
                 <div class="flex justify-between items-center mb-4">
-                                             <h3 class="text-lg font-semibold text-yellow-400 chart-header">
+                                             <h3 class="text-lg font-semibold text-yellow-600 chart-header">
                              <i class="fas fa-clock mr-2"></i>
                              Tempo de Resolução
                              <i class="fas fa-info-circle text-yellow-500 ml-2 cursor-help" title="Mostra a evolução do tempo médio de resolução ao longo do tempo. Permite identificar tendências de melhoria ou piora no tempo de atendimento."></i>
                          </h3>
                          <div class="flex space-x-2">
-                             <button class="text-gray-400 hover:text-white transition-colors" onclick="openChartSettings('tempoChart', 'Tempo de Resolução')">
+                             <button class="text-gray-600 hover:text-gray-900 transition-colors" onclick="openChartSettings('tempoChart', 'Tempo de Resolução')">
                                  <i class="fas fa-edit"></i>
                              </button>
-                             <button class="text-gray-400 hover:text-white transition-colors" onclick="expandChart('tempoChart')">
+                             <button class="text-gray-600 hover:text-gray-900 transition-colors" onclick="expandChart('tempoChart')">
                                  <i class="fas fa-expand"></i>
                              </button>
                          </div>
@@ -824,38 +841,38 @@
             </div>
 
             <!-- Gráfico 4: Tickets por Classificação -->
-            <div id="chart4" class="bg-gray-800 rounded-lg p-6 shadow-lg cursor-move">
+            <div id="chart4" class="bg-white rounded-lg p-6 shadow-lg cursor-move border border-gray-200">
                 <div class="flex justify-between items-center mb-4">
-                                             <h3 class="text-lg font-semibold text-red-400 chart-header">
+                                             <h3 class="text-lg font-semibold text-red-600 chart-header">
                              <i class="fas fa-exclamation-triangle mr-2"></i>
                              Tickets por Classificação
                              <i class="fas fa-info-circle text-red-500 ml-2 cursor-help" title="Distribui os tickets por nível de prioridade/classificação. Essencial para entender a distribuição de urgência dos atendimentos."></i>
                          </h3>
                          <div class="flex space-x-2">
-                             <button class="text-gray-400 hover:text-white transition-colors" onclick="openChartSettings('classificacaoChart', 'Tickets por Classificação')">
+                             <button class="text-gray-600 hover:text-gray-900 transition-colors" onclick="openChartSettings('classificacaoChart', 'Tickets por Classificação')">
                                  <i class="fas fa-edit"></i>
                              </button>
-                             <button class="text-gray-400 hover:text-white transition-colors" onclick="expandChart('classificacaoChart')">
+                             <button class="text-gray-600 hover:text-gray-900 transition-colors" onclick="expandChart('classificacaoChart')">
                                  <i class="fas fa-expand"></i>
                              </button>
                          </div>
                 </div>
-                <canvas id="classificacaoChart" height="200"></canvas>
+                <canvas id="chart4" height="200"></canvas>
             </div>
 
             <!-- Gráfico 5: Radar Chart -->
-            <div id="chart5" class="bg-gray-800 rounded-lg p-6 shadow-lg cursor-move">
+            <div id="chart5" class="bg-white rounded-lg p-6 shadow-lg cursor-move border border-gray-200">
                 <div class="flex justify-between items-center mb-4">
-                                             <h3 class="text-lg font-semibold text-purple-400 chart-header">
+                                             <h3 class="text-lg font-semibold text-purple-600 chart-header">
                              <i class="fas fa-chart-radar mr-2"></i>
                              Radar Chart
                              <i class="fas fa-info-circle text-purple-500 ml-2 cursor-help" title="Gráfico radar que apresenta múltiplas métricas de performance em uma visualização única. Permite avaliar o desempenho geral do sistema de atendimento."></i>
                          </h3>
                          <div class="flex space-x-2">
-                             <button class="text-gray-400 hover:text-white transition-colors" onclick="openChartSettings('radarChart', 'Radar Chart')">
+                             <button class="text-gray-600 hover:text-gray-900 transition-colors" onclick="openChartSettings('radarChart', 'Radar Chart')">
                                  <i class="fas fa-edit"></i>
                              </button>
-                             <button class="text-gray-400 hover:text-white transition-colors" onclick="expandChart('radarChart')">
+                             <button class="text-gray-600 hover:text-gray-900 transition-colors" onclick="expandChart('radarChart')">
                                  <i class="fas fa-expand"></i>
                              </button>
                          </div>
@@ -864,19 +881,18 @@
             </div>
 
             <!-- Gráfico 6: Scatter Chart -->
-            <div id="chart6" class="bg-gray-800 rounded-lg p-6 shadow-lg cursor-move">
+            <div id="chart6" class="bg-white rounded-lg p-6 shadow-lg cursor-move border border-gray-200">
                 <div class="flex justify-between items-center mb-4">
-                                             <h3 class="text-lg font-semibold text-indigo-400 chart-header">
+                                             <h3 class="text-lg font-semibold text-indigo-600 chart-header">
                              <i class="fas fa-chart-scatter mr-2"></i>
                              Scatter Chart
                              <i class="fas fa-info-circle text-indigo-500 ml-2 cursor-help" title="Mostra a relação entre o tempo de resolução e a prioridade dos tickets. Ajuda a identificar se tickets de alta prioridade estão sendo resolvidos mais rapidamente."></i>
                          </h3>
-                         </h3>
                          <div class="flex space-x-2">
-                             <button class="text-gray-400 hover:text-white transition-colors" onclick="openChartSettings('scatterChart', 'Scatter Chart')">
+                             <button class="text-gray-600 hover:text-gray-900 transition-colors" onclick="openChartSettings('scatterChart', 'Scatter Chart')">
                                  <i class="fas fa-edit"></i>
                              </button>
-                             <button class="text-gray-400 hover:text-white transition-colors" onclick="expandChart('scatterChart')">
+                             <button class="text-gray-600 hover:text-gray-900 transition-colors" onclick="expandChart('scatterChart')">
                                  <i class="fas fa-expand"></i>
                              </button>
                          </div>
@@ -887,10 +903,10 @@
     </main>
 
              <!-- Sidebar de Informações -->
-    <div id="sidebar" class="fixed bottom-4 left-4 bg-gray-800 rounded-lg shadow-lg transition-all duration-300 ease-in-out" style="width: 320px;">
+    <div id="sidebar" class="fixed bottom-4 left-4 bg-white rounded-lg shadow-lg transition-all duration-300 ease-in-out border border-gray-200" style="width: 320px;">
         <!-- Botão de Toggle para Minimizar/Expandir -->
         <div class="absolute -right-3 top-1/2 transform -translate-y-1/2">
-            <button id="sidebarToggle" class="bg-gray-700 hover:bg-gray-600 text-white w-6 h-6 rounded-full flex items-center justify-center shadow-lg transition-all duration-200 hover:scale-110">
+            <button id="sidebarToggle" class="bg-gray-200 hover:bg-gray-300 text-gray-700 w-6 h-6 rounded-full flex items-center justify-center shadow-lg transition-all duration-200 hover:scale-110">
                 <i id="toggleIcon" class="fas fa-chevron-left text-xs"></i>
             </button>
         </div>
@@ -898,39 +914,39 @@
         <!-- Conteúdo do Sidebar -->
         <div id="sidebarContent" class="p-4">
             <div class="flex items-center space-x-3 mb-3">
-                <div id="userAvatar" class="w-10 h-10 rounded-full bg-gray-600 flex items-center justify-center">
-                    <i class="fa-solid fa-user text-white text-xl"></i>
+                <div id="userAvatar" class="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center">
+                    <i class="fa-solid fa-user text-gray-600 text-xl"></i>
                 </div>
                 <div>
-                    <div id="userName" class="font-semibold text-white">João Silva</div>
-                    <div id="userRole" class="text-sm text-gray-400">Analista de Suporte</div>
+                    <div id="userName" class="font-semibold text-gray-900">João Silva</div>
+                    <div id="userRole" class="text-sm text-gray-600">Analista de Suporte</div>
                 </div>
             </div>
             
             <div class="space-y-2 text-sm">
                 <div class="flex justify-between">
-                    <span class="text-gray-400">Total de Tickets:</span>
-                    <span id="totalTickets" class="text-white font-semibold">0</span>
+                    <span class="text-gray-600">Total de Tickets:</span>
+                    <span id="totalTickets" class="text-gray-900 font-semibold">0</span>
                 </div>
                 <div class="flex justify-between">
-                    <span class="text-gray-400">Em Aberto:</span>
-                    <span id="ticketsAbertos" class="text-yellow-400 font-semibold">0</span>
+                    <span class="text-gray-600">Em Aberto:</span>
+                    <span id="ticketsAbertos" class="text-yellow-600 font-semibold">0</span>
                 </div>
                 <div class="flex justify-between">
-                    <span class="text-gray-400">Resolvidos:</span>
-                    <span id="ticketsResolvidos" class="text-green-400 font-semibold">0</span>
+                    <span class="text-gray-600">Resolvidos:</span>
+                    <span id="ticketsResolvidos" class="text-green-600 font-semibold">0</span>
                 </div>
                 <div class="flex justify-between">
-                    <span class="text-gray-400">Em Atendimento:</span>
-                    <span id="ticketsEmAtendimento" class="text-blue-400 font-semibold">0</span>
+                    <span class="text-gray-600">Em Atendimento:</span>
+                    <span id="ticketsEmAtendimento" class="text-blue-600 font-semibold">0</span>
                 </div>
                 <div class="flex justify-between">
-                    <span class="text-gray-400">Dados Importados:</span>
-                    <span id="dataSourcesCount" class="text-purple-400 font-semibold">0</span>
+                    <span class="text-gray-600">Dados Importados:</span>
+                    <span id="dataSourcesCount" class="text-purple-600 font-semibold">0</span>
                 </div>
                 <div class="flex justify-between">
-                    <span class="text-gray-400">Tempo Médio:</span>
-                    <span id="tempoMedio" class="text-orange-400 font-semibold">0h</span>
+                    <span class="text-gray-600">Tempo Médio:</span>
+                    <span id="tempoMedio" class="text-orange-600 font-semibold">0h</span>
                 </div>
             </div>
             
@@ -943,16 +959,16 @@
         <!-- Sidebar Minimizado -->
         <div id="sidebarMinimized" class="hidden p-2">
             <div class="flex flex-col items-center space-y-3">
-                <div id="userAvatarMin" class="w-12 h-12 rounded-full bg-gray-600 flex items-center justify-center cursor-pointer" title="Clique para expandir">
-                    <i class="fa-solid fa-user text-white text-xl"></i>
+                <div id="userAvatarMin" class="w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center cursor-pointer" title="Clique para expandir">
+                    <i class="fa-solid fa-user text-gray-600 text-xl"></i>
                 </div>
                 <div class="text-center">
-                    <div class="text-xs text-gray-400">Tickets</div>
-                    <div id="totalTicketsMin" class="text-white font-bold text-lg">0</div>
+                    <div class="text-xs text-gray-600">Tickets</div>
+                    <div id="totalTicketsMin" class="text-gray-900 font-bold text-lg">0</div>
                 </div>
                 <div class="text-center">
-                    <div class="text-xs text-gray-400">Abertos</div>
-                    <div id="ticketsAbertosMin" class="text-yellow-400 font-bold text-lg">0</div>
+                    <div class="text-xs text-gray-600">Abertos</div>
+                    <div id="ticketsAbertosMin" class="text-yellow-600 font-bold text-lg">0</div>
                 </div>
             </div>
         </div>
@@ -960,21 +976,21 @@
 
             <!-- Modal de Upload Excel -->
         <div id="excelModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
-            <div class="bg-gray-800 rounded-lg p-8 max-w-md w-full mx-4">
+            <div class="bg-white rounded-lg p-8 max-w-md w-full mx-4 border border-gray-200">
                 <div class="flex justify-between items-center mb-6">
-                    <h3 class="text-xl font-semibold text-white">
-                        <i class="fas fa-file-excel mr-2 text-green-400"></i>
+                    <h3 class="text-xl font-semibold text-gray-900">
+                        <i class="fas fa-file-excel mr-2 text-green-600"></i>
                         Importar Excel
                     </h3>
-                    <button onclick="closeExcelModal()" class="text-gray-400 hover:text-white">
+                    <button onclick="closeExcelModal()" class="text-gray-600 hover:text-gray-900">
                         <i class="fas fa-times"></i>
                     </button>
                 </div>
                 
                 <div class="space-y-4">
-                    <div class="border-2 border-dashed border-gray-600 rounded-lg p-6 text-center">
-                        <i class="fas fa-cloud-upload-alt text-4xl text-gray-400 mb-4"></i>
-                        <p class="text-gray-400 mb-2">Arraste e solte seu arquivo Excel aqui</p>
+                    <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
+                        <i class="fas fa-cloud-upload-alt text-4xl text-gray-500 mb-4"></i>
+                        <p class="text-gray-600 mb-2">Arraste e solte seu arquivo Excel aqui</p>
                         <p class="text-sm text-gray-500">ou</p>
                         <input type="file" id="excelFile" accept=".xlsx,.xls" class="hidden">
                         <button onclick="document.getElementById('excelFile').click()" class="mt-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">
@@ -982,14 +998,14 @@
                         </button>
                     </div>
                     
-                    <div id="fileInfo" class="hidden bg-gray-700 rounded p-3">
+                    <div id="fileInfo" class="hidden bg-gray-100 rounded p-3 border border-gray-200">
                         <div class="flex items-center justify-between">
                             <div>
-                                <p class="text-white font-semibold" id="fileName"></p>
-                                <p class="text-sm text-gray-400 mb-2" id="fileSize"></p>
+                                <p class="text-gray-900 font-semibold" id="fileName"></p>
+                                <p class="text-sm text-gray-600 mb-2" id="fileSize"></p>
                                 <div class="mb-2">
-                                    <label class="block text-gray-300 text-sm mb-1">Nome dos Dados:</label>
-                                    <input type="text" id="dataSourceName" placeholder="Ex: Tickets Janeiro 2024" class="w-full bg-gray-600 border border-gray-500 rounded px-2 py-1 text-white text-sm">
+                                    <label class="block text-gray-700 text-sm mb-1">Nome dos Dados:</label>
+                                    <input type="text" id="dataSourceName" placeholder="Ex: Tickets Janeiro 2024" class="w-full bg-white border border-gray-300 rounded px-2 py-1 text-gray-900 text-sm">
                                 </div>
                             </div>
                             <button onclick="removeFile()" class="text-red-400 hover:text-red-300">
@@ -1013,13 +1029,13 @@
 
          <!-- Modal de Configurações de Gráficos -->
      <div id="chartSettingsModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
-         <div class="bg-gray-800 rounded-lg p-8 max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto">
+         <div class="bg-white rounded-lg p-8 max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto border border-gray-200">
              <div class="flex justify-between items-center mb-6">
-                 <h3 class="text-xl font-semibold text-white">
-                     <i class="fas fa-chart-line mr-2 text-blue-400"></i>
+                 <h3 class="text-xl font-semibold text-gray-900">
+                     <i class="fas fa-chart-line mr-2 text-blue-600"></i>
                      <span id="chartSettingsTitle">Configurações do Gráfico</span>
                  </h3>
-                 <button onclick="closeChartSettingsModal()" class="text-gray-400 hover:text-white">
+                 <button onclick="closeChartSettingsModal()" class="text-gray-600 hover:text-gray-900">
                      <i class="fas fa-times"></i>
                  </button>
              </div>
@@ -1027,14 +1043,14 @@
              <div class="space-y-6">
                  <!-- Configurações de Tipo de Gráfico -->
                  <div>
-                     <h4 class="text-lg font-semibold text-indigo-400 mb-3">
+                     <h4 class="text-lg font-semibold text-indigo-600 mb-3">
                          <i class="fas fa-chart-line mr-2"></i>
                          Tipo de Gráfico
                      </h4>
                      <div class="grid grid-cols-2 gap-4">
                          <div>
-                             <label class="block text-gray-300 mb-2">Tipo do Gráfico</label>
-                             <select id="chartType" class="w-full bg-gray-700 border border-gray-600 rounded px-3 py-2 text-white">
+                             <label class="block text-gray-700 mb-2">Tipo do Gráfico</label>
+                             <select id="chartType" class="w-full bg-white border border-gray-300 rounded px-3 py-2 text-gray-900 focus:border-blue-500 focus:outline-none">
                                  <option value="bar">Barras</option>
                                  <option value="line">Linha</option>
                                  <option value="pie">Pizza</option>
@@ -1046,8 +1062,8 @@
                              </select>
                          </div>
                          <div>
-                             <label class="block text-gray-300 mb-2">Descrição</label>
-                             <div id="chartTypeDescription" class="text-sm text-gray-400 bg-gray-700 p-3 rounded border border-gray-600">
+                             <label class="block text-gray-700 mb-2">Descrição</label>
+                             <div id="chartTypeDescription" class="text-sm text-gray-600 bg-gray-50 p-3 rounded border border-gray-200">
                                  Selecione um tipo para ver a descrição
                              </div>
                          </div>
@@ -1056,35 +1072,35 @@
                  
                  <!-- Configurações de Cores -->
                  <div>
-                     <h4 class="text-lg font-semibold text-blue-400 mb-3">
+                     <h4 class="text-lg font-semibold text-blue-600 mb-3">
                          <i class="fas fa-palette mr-2"></i>
                          Cores e Estilo
                      </h4>
                      <div class="grid grid-cols-2 gap-4">
                          <div>
-                             <label class="block text-gray-300 mb-2">Cor de Fundo</label>
-                             <input type="color" id="chartBgColor" class="w-full h-10 rounded border border-gray-600">
+                             <label class="block text-gray-700 mb-2">Cor de Fundo</label>
+                             <input type="color" id="chartBgColor" class="w-full h-10 rounded border border-gray-300">
                          </div>
                          <div>
-                             <label class="block text-gray-300 mb-2">Cor da Borda</label>
-                             <input type="color" id="chartBorderColor" class="w-full h-10 rounded border border-gray-600">
+                             <label class="block text-gray-700 mb-2">Cor da Borda</label>
+                             <input type="color" id="chartBorderColor" class="w-full h-10 rounded border border-gray-300">
                          </div>
                          <div>
-                             <label class="block text-gray-300 mb-2">Espessura da Borda</label>
+                             <label class="block text-gray-700 mb-2">Espessura da Borda</label>
                              <input type="range" id="chartBorderWidth" min="0" max="10" value="2" class="w-full">
-                             <span id="borderWidthValue" class="text-sm text-gray-400">2px</span>
+                             <span id="borderWidthValue" class="text-sm text-gray-600">2px</span>
                          </div>
                          <div>
-                             <label class="block text-gray-300 mb-2">Transparência</label>
+                             <label class="block text-gray-700 mb-2">Transparência</label>
                              <input type="range" id="chartOpacity" min="0" max="100" value="80" class="w-full">
-                             <span id="opacityValue" class="text-sm text-gray-400">80%</span>
+                             <span id="opacityValue" class="text-sm text-gray-600">80%</span>
                          </div>
                      </div>
                  </div>
                  
                  <!-- Configurações de Dados -->
                  <div>
-                     <h4 class="text-lg font-semibold text-green-400 mb-3">
+                     <h4 class="text-lg font-semibold text-green-600 mb-3">
                          <i class="fas fa-database mr-2"></i>
                          Dados e Valores
                      </h4>
@@ -1561,7 +1577,7 @@
         const tutorialSteps = [
             {
                 id: 'welcome',
-                title: 'Bem-vindo ao Anydesk Control!',
+                title: 'Bem-vindo ao Movidesk Control!',
                 description: 'Este é um sistema de Business Intelligence para análise de tickets. Vamos explorar todas as funcionalidades.',
                 target: null,
                 position: 'center',
@@ -1738,7 +1754,7 @@
             {
                 id: 'completion',
                 title: 'Tutorial Concluído!',
-                description: 'Parabéns! Você conhece todas as funcionalidades do Anydesk Control. Agora pode começar a usar o sistema com confiança.',
+                description: 'Parabéns! Você conhece todas as funcionalidades do Movidesk Control. Agora pode começar a usar o sistema com confiança.',
                 target: null,
                 position: 'center',
                 icon: 'fas fa-check-circle'
@@ -1769,6 +1785,10 @@
             tutorialActive = true;
             tutorialStep = 0;
             
+            // Mostrar botão de pular tutorial no header
+            const skipTutorialBtn = document.getElementById('skipTutorialBtn');
+            if (skipTutorialBtn) skipTutorialBtn.style.display = 'inline-flex';
+            
             // Melhorar experiência do tutorial
             enhanceTutorialExperience();
             
@@ -1791,6 +1811,10 @@
             
             if (progressContainer) progressContainer.style.display = 'none';
             if (skipContainer) skipContainer.style.display = 'none';
+            
+            // Ocultar botão de pular tutorial no header
+            const skipTutorialBtn = document.getElementById('skipTutorialBtn');
+            if (skipTutorialBtn) skipTutorialBtn.style.display = 'none';
             
             tutorialActive = false;
             localStorage.setItem('tutorialCompleted', 'true');
@@ -1826,6 +1850,10 @@
             
             if (progressContainer) progressContainer.style.display = 'block';
             if (skipContainer) skipContainer.style.display = 'block';
+            
+            // Garantir que o botão de pular tutorial no header esteja visível
+            const skipTutorialBtn = document.getElementById('skipTutorialBtn');
+            if (skipTutorialBtn) skipTutorialBtn.style.display = 'inline-flex';
             
             // Mostrar overlay
             const overlay = document.getElementById('tutorialOverlay');
@@ -1921,6 +1949,22 @@
                 case 'chart-info':
                     // Para informações dos gráficos, destacar o primeiro ícone de info
                     targetElement = document.querySelector('.fa-info-circle');
+                    if (!targetElement) {
+                        // Se não encontrar, tentar com seletor mais específico
+                        targetElement = document.querySelector('i.fa-info-circle');
+                    }
+                    if (!targetElement) {
+                        // Se ainda não encontrar, tentar com seletor mais amplo
+                        targetElement = document.querySelector('[class*="fa-info-circle"]');
+                    }
+                    if (!targetElement) {
+                        // Se ainda não encontrar, tentar com seletor de ícone de informação
+                        targetElement = document.querySelector('i[class*="info"]');
+                    }
+                    if (!targetElement) {
+                        // Última tentativa: procurar por qualquer ícone de informação
+                        targetElement = document.querySelector('[title*="Mostra"], [title*="Exibe"], [title*="Distribui"]');
+                    }
                     break;
                 case 'dashboard-management':
                     // Para gerenciamento de dashboards, destacar o seletor
@@ -2120,6 +2164,10 @@
             if (progressContainer) progressContainer.style.display = 'none';
             if (skipContainer) skipContainer.style.display = 'none';
             
+            // Ocultar botão de pular tutorial no header
+            const skipTutorialBtn = document.getElementById('skipTutorialBtn');
+            if (skipTutorialBtn) skipTutorialBtn.style.display = 'none';
+            
             removeTutorialHighlights();
             localStorage.setItem('tutorialCompleted', 'true');
             
@@ -2168,6 +2216,21 @@
                 
                 // Remover filtros aplicados
                 el.style.filter = '';
+                
+                // Restaurar estilos de destaque aplicados
+                el.style.boxShadow = '';
+                el.style.border = '';
+                el.style.borderRadius = '';
+                el.style.animation = '';
+                el.style.backgroundColor = '';
+                
+                // Restaurar estilos específicos dos ícones
+                if (el.tagName === 'I' || el.classList.contains('fa-info-circle') || 
+                    el.classList.contains('fas') || el.classList.contains('fa')) {
+                    el.style.padding = '';
+                    el.style.color = '';
+                    el.style.fontSize = '';
+                }
             });
             
             // Remover efeitos especiais
@@ -2191,6 +2254,9 @@
                 if (element.style.position === 'static') {
                     element.style.position = 'relative';
                 }
+                
+                // Definir z-index alto para garantir que o elemento esteja na frente
+                element.style.zIndex = '9999';
                 
                 // Adicionar classes específicas baseadas no tipo de elemento
                 if (element.closest('.modal')) {
@@ -2274,28 +2340,37 @@
             // Adicionar classe para efeitos especiais
             element.classList.add('tutorial-special-effect');
             
-            // Adicionar efeito de brilho
+            // Garantir que o elemento tenha posição relativa para os efeitos funcionarem
+            if (element.style.position === 'static') {
+                element.style.position = 'relative';
+            }
+            
+            // Adicionar efeito de brilho mais intenso
             const glowEffect = document.createElement('div');
             glowEffect.className = 'tutorial-glow-effect';
             glowEffect.style.cssText = `
                 position: absolute;
-                top: -20px;
-                left: -20px;
-                right: -20px;
-                bottom: -20px;
-                background: radial-gradient(circle, rgba(59, 130, 246, 0.4) 0%, rgba(29, 78, 216, 0.2) 30%, transparent 70%);
-                border-radius: 25px;
+                top: -25px;
+                left: -25px;
+                right: -25px;
+                bottom: -25px;
+                background: radial-gradient(circle, rgba(59, 130, 246, 0.6) 0%, rgba(29, 78, 216, 0.4) 30%, rgba(59, 130, 246, 0.2) 60%, transparent 80%);
+                border-radius: 30px;
                 z-index: -3;
-                animation: tutorial-glow 3s infinite;
+                animation: tutorial-glow 2s infinite;
                 pointer-events: none;
-                filter: blur(2px);
+                filter: blur(1px);
             `;
             
-            element.style.position = 'relative';
             element.appendChild(glowEffect);
             
             // Adicionar efeito de partículas flutuantes
             addFloatingParticles(element);
+            
+            // Adicionar borda pulsante
+            element.style.border = '3px solid #3b82f6';
+            element.style.borderRadius = '8px';
+            element.style.animation = 'tutorial-border-glow 1.5s infinite';
         }
 
         // Garantir que o elemento esteja visível durante o tutorial
@@ -2334,6 +2409,32 @@
                     inline: 'center'
                 });
             }
+            
+            // Garantir que o elemento tenha contraste adequado
+            const computedStyle = window.getComputedStyle(element);
+            const backgroundColor = computedStyle.backgroundColor;
+            const color = computedStyle.color;
+            
+            // Se o elemento tiver fundo claro e texto claro, ajustar para melhor visibilidade
+            if (backgroundColor && backgroundColor !== 'rgba(0, 0, 0, 0)' && 
+                backgroundColor !== 'transparent' && 
+                backgroundColor.includes('255, 255, 255')) {
+                element.style.backgroundColor = '#f3f4f6'; // Fundo cinza claro
+                element.style.border = '2px solid #3b82f6'; // Borda azul
+            }
+            
+            // Para elementos pequenos como ícones, aumentar o padding para melhor visibilidade
+            if (element.tagName === 'I' || element.classList.contains('fa-info-circle') || 
+                element.classList.contains('fas') || element.classList.contains('fa')) {
+                element.style.padding = '8px';
+                element.style.borderRadius = '50%';
+                element.style.backgroundColor = '#3b82f6';
+                element.style.color = 'white';
+                element.style.fontSize = '18px';
+            }
+            
+            // Adicionar sombra para destacar o elemento
+            element.style.boxShadow = '0 0 20px rgba(59, 130, 246, 0.8), 0 0 40px rgba(59, 130, 246, 0.4)';
         }
 
         // Adicionar partículas flutuantes ao redor do elemento
@@ -2390,6 +2491,11 @@
                     el.style.position = el.dataset.originalPosition;
                     delete el.dataset.originalPosition;
                 }
+                
+                // Restaurar estilos de destaque
+                el.style.border = '';
+                el.style.borderRadius = '';
+                el.style.animation = '';
             });
             
             // Fechar modais que foram abertos pelo tutorial
@@ -2410,7 +2516,7 @@
                     </div>
                     <div>
                         <div class="font-bold text-lg">Parabéns! Tutorial Concluído!</div>
-                        <div class="text-sm opacity-90 mt-1">Você agora conhece todas as funcionalidades do Anydesk Control.</div>
+                        <div class="text-sm opacity-90 mt-1">Você agora conhece todas as funcionalidades do Movidesk Control.</div>
                         <div class="text-xs opacity-75 mt-2">🎯 Comece a usar o sistema com confiança!</div>
                     </div>
                 </div>
@@ -2916,9 +3022,9 @@
         }
 
         // Atualizar estatísticas do dashboard
-        async function updateDashboardStats() {
-            try {
-                const response = await fetch('http://localhost:3000/api/dashboard/stats');
+            async function updateDashboardStats() {
+        try {
+            const response = await apiCall('/api/dashboard/stats');
                 
                 if (!response.ok) {
                     // Se a API não estiver disponível, usar dados padrão
@@ -3135,7 +3241,7 @@
             formData.append('dataSourceName', dataSourceName);
 
             try {
-                const response = await fetch('http://localhost:3000/api/upload-excel', {
+                const response = await apiCall('/api/upload-excel', {
                     method: 'POST',
                     body: formData
                 });
@@ -3185,7 +3291,7 @@
         async function updateChartsWithNewData() {
             try {
                 // Verificar se o backend está rodando
-                const response = await fetch('http://localhost:3000/api/dashboard/stats');
+                const response = await apiCall('/api/dashboard/stats');
                 
                 if (!response.ok) {
                     // Se a API não estiver disponível, usar dados padrão
@@ -3379,7 +3485,7 @@
                         profile_picture: profilePicture
                     };
 
-                    const response = await fetch('http://localhost:3000/api/profile', {
+                    const response = await apiCall('/api/profile', {
                         method: 'PUT',
                         headers: {
                             'Content-Type': 'application/json'
@@ -3439,7 +3545,7 @@
         // Carregar perfil
         async function loadProfile() {
             try {
-                const response = await fetch('http://localhost:3000/api/profile');
+                const response = await apiCall('/api/profile');
                 
                 if (!response.ok) {
                     // Se a API não estiver disponível, usar dados padrão
@@ -4211,7 +4317,7 @@
                         const newChart = window[chartId];
                         
                         // Aplicar outras configurações ao novo gráfico
-                        applyOtherChartSettings(newChart, settings);
+                        applyOtherChartSettings(newChart, settings, chartId);
                         
                         return;
                     }
@@ -4227,11 +4333,11 @@
             }
             
             // Aplicar outras configurações sem mudança de tipo
-            applyOtherChartSettings(chart, settings);
+            applyOtherChartSettings(chart, settings, chartId);
         }
         
         // Aplicar outras configurações do gráfico (sem mudança de tipo)
-        function applyOtherChartSettings(chart, settings) {
+        function applyOtherChartSettings(chart, settings, chartId) {
             // Aplicar configurações de cores
             if (chart.data && chart.data.datasets && chart.data.datasets[0]) {
                 const dataset = chart.data.datasets[0];
@@ -4434,7 +4540,7 @@
         // Função para carregar dados dos tickets
         async function loadTicketsData(type = 'all') {
             try {
-                const response = await fetch('/api/tickets');
+                const response = await apiCall('/api/tickets');
                 const data = await response.json();
                 
                 if (data.success) {
@@ -4580,7 +4686,7 @@
         // Função para carregar dados
         async function loadDataSources() {
             try {
-                const response = await fetch('/api/data-sources');
+                const response = await apiCall('/api/data-sources');
                 const data = await response.json();
                 
                 if (data.success) {
@@ -4646,7 +4752,7 @@
             }
             
             try {
-                const response = await fetch(`/api/data-sources/${currentDataSourceId}`, {
+                const response = await apiCall(`/api/data-sources/${currentDataSourceId}`, {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json'
@@ -4676,7 +4782,7 @@
             }
             
             try {
-                const response = await fetch(`/api/data-sources/${id}`, {
+                const response = await apiCall(`/api/data-sources/${id}`, {
                     method: 'DELETE'
                 });
                 
@@ -4827,7 +4933,7 @@
 
         async function loadTicketsData() {
             try {
-                const response = await fetch('/api/tickets');
+                const response = await apiCall('/api/tickets');
                 const data = await response.json();
                 
                 if (data.success) {
@@ -4964,7 +5070,7 @@
 
         async function loadDataSources() {
             try {
-                const response = await fetch('/api/data-sources');
+                const response = await apiCall('/api/data-sources');
                 const data = await response.json();
                 
                 if (data.success) {
@@ -5042,7 +5148,7 @@
             const name = document.getElementById('editDataSourceName').value;
             
             try {
-                const response = await fetch(`/api/data-sources/${editingDataSourceId}`, {
+                const response = await apiCall(`/api/data-sources/${editingDataSourceId}`, {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json'
@@ -5063,7 +5169,7 @@
         async function deleteDataSource(id) {
             if (confirm('Tem certeza que deseja excluir estes dados? Esta ação não pode ser desfeita.')) {
                 try {
-                    const response = await fetch(`/api/data-sources/${id}`, {
+                    const response = await apiCall(`/api/data-sources/${id}`, {
                         method: 'DELETE'
                     });
                     
@@ -5100,7 +5206,7 @@
         // Atualizar loadDashboardStats para incluir dados
         async function loadDashboardStats() {
             try {
-                const response = await fetch('/api/dashboard/stats');
+                const response = await apiCall('/api/dashboard/stats');
                 const data = await response.json();
                 
                 if (data.success) {
@@ -5111,7 +5217,7 @@
                     document.getElementById('ticketsResolvidosCard').textContent = stats.TICKETS_FECHADOS || 0;
                     
                     // Carregar contagem de dados
-                    const dsResponse = await fetch('/api/data-sources');
+                    const dsResponse = await apiCall('/api/data-sources');
                     const dsData = await dsResponse.json();
                     if (dsData.success) {
                         document.getElementById('dataSourcesCard').textContent = dsData.dataSources.length || 0;
@@ -5124,7 +5230,6 @@
             }
         }
 
-        // ... existing code ...
     </script>
 </body>
 </html>

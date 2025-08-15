@@ -278,7 +278,7 @@ app.get('/api/profile', async (req, res) => {
                     name: 'Administrador',
                     role: 'Administrador',
                     avatar: null,
-                    email: 'admin@anydeskcontrol.com'
+                    email: 'admin@movideskcontrol.com'
                 }
             });
         }
@@ -448,7 +448,7 @@ async function startServer() {
         // Iniciar servidor
         app.listen(PORT, () => {
             console.log('========================================');
-            console.log('   Sistema Anydesk Control');
+            console.log('   Sistema Movidesk Control');
             console.log('   Backend iniciado com sucesso!');
             console.log('========================================');
             console.log(`🚀 Servidor rodando em: http://localhost:${PORT}`);

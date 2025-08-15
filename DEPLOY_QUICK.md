@@ -9,7 +9,7 @@
 ### 2. Conecte o Repositório
 - Clique em **"New site from Git"**
 - Escolha **"GitHub"**
-- Selecione o repositório **`AnydeskControl`**
+- Selecione o repositório **`MovideskControl`**
 
 ### 3. Configure o Deploy
 - **Build command**: Deixe vazio

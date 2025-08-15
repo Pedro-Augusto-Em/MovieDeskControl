@@ -1,4 +1,4 @@
-# Anydesk Control - Sistema de BI para Tickets
+# Movidesk Control - Sistema de BI para Tickets
 
 Sistema de Business Intelligence (BI) para análise e visualização de dados de tickets através de dashboards interativos.
 
@@ -120,7 +120,7 @@ npm run setup
 ## 📁 Estrutura do Projeto
 
 ```
-AnydeskControl/
+MovideskControl/
 ├── index.html                  # Interface principal
 ├── backend/
 │   ├── server.js              # Servidor Express
@@ -130,7 +130,7 @@ AnydeskControl/
 │   ├── firebird_schema.sql    # Estrutura do banco
 │   ├── firebird_connection.js # Conexão Firebird
 │   ├── setup_firebird.js      # Script de configuração
-│   └── anydesk_control.fdb    # Arquivo do banco
+│   └── movidesk_control.fdb    # Arquivo do banco
 ├── start_firebird.bat         # Script Windows
 ├── start_firebird.sh          # Script Linux/macOS
 ├── FIREBIRD_SETUP.md          # Documentação Firebird
@@ -173,7 +173,7 @@ AnydeskControl/
 # Firebird
 FIREBIRD_HOST=localhost
 FIREBIRD_PORT=3050
-FIREBIRD_DATABASE=C:/AnydeskControl/database/anydesk_control.fdb
+FIREBIRD_DATABASE=C:/MovideskControl/database/movidesk_control.fdb
 FIREBIRD_USER=SYSDBA
 FIREBIRD_PASSWORD=masterkey
 

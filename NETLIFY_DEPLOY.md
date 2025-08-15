@@ -1,12 +1,12 @@
 # Deploy no Netlify
 
 ## Visão Geral
-Este guia explica como fazer o deploy do Anydesk Control no Netlify, uma plataforma de hospedagem gratuita e fácil de usar.
+Este guia explica como fazer o deploy do Movidesk Control no Netlify, uma plataforma de hospedagem gratuita e fácil de usar.
 
 ## Pré-requisitos
 - Conta no GitHub
 - Conta no Netlify (gratuita)
-- Projeto Anydesk Control configurado e funcionando localmente
+- Projeto Movidesk Control configurado e funcionando localmente
 
 ## Passo a Passo
 
@@ -15,7 +15,7 @@ Este guia explica como fazer o deploy do Anydesk Control no Netlify, uma platafo
 #### 1.1 Estrutura de Arquivos
 Seu projeto já está configurado com a estrutura correta:
 ```
-AnydeskControl/
+MovideskControl/
 ├── index.html                  # Interface principal (já renomeado)
 ├── backend/                    # Servidor Node.js
 ├── database/                   # Configurações Firebird
@@ -47,7 +47,7 @@ O `index.html` já inclui todas as dependências via CDN:
    - Clique em "New site from Git"
    - Escolha "GitHub"
    - Autorize o Netlify a acessar seus repositórios
-   - Selecione o repositório `AnydeskControl`
+   - Selecione o repositório `MovideskControl`
 
 3. **Configure o Deploy**
    - **Build command**: Deixe vazio (não é necessário build)
@@ -79,7 +79,7 @@ O `index.html` já inclui todas as dependências via CDN:
 #### 3.1 Nome Personalizado
 - No painel do site, clique em "Site settings"
 - Em "Site information", clique em "Change site name"
-- Digite um nome como `anydesk-control` ou `ticket-bi-system`
+- Digite um nome como `movidesk-control` ou `ticket-bi-system`
 
 #### 3.2 Domínio Personalizado (Opcional)
 - Em "Domain management", clique em "Add custom domain"
@@ -112,7 +112,7 @@ NODE_ENV=production
 PORT=3000
 DB_HOST=localhost
 DB_PORT=3050
-DB_NAME=anydesk_control
+DB_NAME=movidesk_control
 DB_USER=SYSDBA
 DB_PASSWORD=sua_senha
 ```
@@ -199,6 +199,6 @@ O backend pode ser deployado em:
 
 ## Conclusão
 
-O Netlify oferece uma solução robusta e gratuita para hospedar o frontend do Anydesk Control. Com deploy automático via GitHub e configurações simples, você terá seu sistema rodando em produção rapidamente.
+O Netlify oferece uma solução robusta e gratuita para hospedar o frontend do Movidesk Control. Com deploy automático via GitHub e configurações simples, você terá seu sistema rodando em produção rapidamente.
 
 Para dúvidas específicas, consulte a documentação oficial do Netlify ou entre em contato com a comunidade.

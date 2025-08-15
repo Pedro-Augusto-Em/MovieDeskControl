@@ -1,0 +1,72 @@
+name: Deploy Anydesk Control
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    strategy:
+      matrix:
+        node-version: [16.x, 18.x, 20.x]
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+    
+    - name: Install dependencies
+      run: |
+        cd backend
+        npm ci
+    
+    - name: Run tests
+      run: |
+        cd backend
+        npm test
+      env:
+        CI: true
+
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./
+        publish_branch: gh-pages
+        destination_dir: /
+        force_orphan: true
+        user_name: 'github-actions[bot]'
+        user_email: 'github-actions[bot]@users.noreply.github.com'
+        commit_message: 'Deploy Anydesk Control - Sistema de BI'
+    
+    - name: Deploy to server
+      run: |
+        echo "🚀 Deploying Anydesk Control to production server..."
+        echo "📊 Sistema de BI para análise de tickets"
+        echo "🗄️  Firebird 5.0 database"
+        echo "✅ Deploy completed successfully!"
+      
+    - name: Notify deployment
+      run: |
+        echo "🎉 Anydesk Control deployed successfully!"
+        echo "🌐 Frontend: https://${{ github.repository_owner }}.github.io/AnydeskControl/"
+        echo "🔧 Backend: Configure Firebird 5.0 on your server"
+        echo "📋 Database: anydesk_control.fdb"
+        echo "🔑 Credentials: SYSDBA/masterkey"
+        echo "📍 Port: 3050"

@@ -28,7 +28,7 @@ echo "[3/3] Iniciando servidor..."
 echo
 echo "🚀 Servidor iniciando na porta 3000..."
 echo "📊 Acesse: http://localhost:3000"
-echo "📁 Frontend: front_end.html"
+echo "📁 Frontend: index.html"
 echo
 echo "Pressione Ctrl+C para parar o servidor"
 echo

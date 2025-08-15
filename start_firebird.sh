@@ -55,7 +55,7 @@ echo "========================================"
 echo
 echo "🚀 Iniciando servidor..."
 echo "📊 Acesse: http://localhost:3000"
-echo "📁 Frontend: front_end.html"
+echo "📁 Frontend: index.html"
 echo "🗄️ Banco: Firebird 5.0"
 echo
 echo "Pressione Ctrl+C para parar o servidor"

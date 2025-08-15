@@ -11,6 +11,7 @@ Sistema de Business Intelligence (BI) para análise e visualização de dados de
 - **🎨 Configurações Avançadas**: Personalização completa de gráficos
 - **📚 Tutorial Interativo**: Guia passo-a-passo com animações
 - **🗄️ Banco Firebird 5.0**: Armazenamento robusto e escalável
+- **🔐 Sistema de Autenticação**: Registro, login, verificação de e-mail e recuperação de senha
 
 ## 🛠️ Tecnologias
 
@@ -62,6 +63,22 @@ npm start
 http://localhost:3000
 ```
 
+## 🌐 Deploy em Produção
+
+### Frontend (Netlify)
+O frontend está configurado para deploy automático no Netlify:
+
+1. **Conecte seu repositório GitHub** ao Netlify
+2. **Deploy automático** a cada push
+3. **HTTPS gratuito** e CDN global
+4. **Configurações** em `NETLIFY_DEPLOY.md`
+
+### Backend (Render/Railway/Heroku)
+O backend pode ser deployado em:
+- **Render**: [render.com](https://render.com) - Gratuito
+- **Railway**: [railway.app](https://railway.app) - Créditos gratuitos
+- **Heroku**: [heroku.com](https://heroku.com) - Plano pago
+
 ## 🗄️ Banco de Dados
 
 ### Firebird 5.0 (Produção)
@@ -104,7 +121,7 @@ npm run setup
 
 ```
 AnydeskControl/
-├── front_end.html              # Interface principal
+├── index.html                  # Interface principal
 ├── backend/
 │   ├── server.js              # Servidor Express
 │   ├── package.json           # Dependências
@@ -181,8 +198,9 @@ NODE_ENV=production
 ## 📖 Documentação
 
 - **Firebird**: `FIREBIRD_SETUP.md`
-- **Deploy**: `DEPLOY_GUIDE.md`
+- **Deploy**: `NETLIFY_DEPLOY.md`
 - **Banco**: `DATABASE_SETUP.md`
+- **Autenticação**: `AUTH_SETUP.md`
 
 ## 🛠️ Troubleshooting
 

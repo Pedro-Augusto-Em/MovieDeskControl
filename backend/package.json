@@ -14,7 +14,11 @@
     "multer": "^1.4.5-lts.1",
     "xlsx": "^0.18.5",
     "node-firebird": "^0.1.0",
-    "dotenv": "^16.3.1"
+    "dotenv": "^16.3.1",
+    "bcrypt": "^5.1.1",
+    "jsonwebtoken": "^9.0.2",
+    "nodemailer": "^6.9.7",
+    "cookie-parser": "^1.4.6"
   },
   "devDependencies": {
     "nodemon": "^3.0.1"

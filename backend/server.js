@@ -4,17 +4,25 @@ const multer = require('multer');
 const XLSX = require('xlsx');
 const path = require('path');
 const fs = require('fs');
+const cookieParser = require('cookie-parser');
 require('dotenv').config();
 
 // Importar conexão Firebird
 const firebird = require('../database/firebird_connection');
 
+// Importar rotas de autenticação
+const authRoutes = require('./auth/auth_routes');
+
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Middleware
-app.use(cors());
+app.use(cors({
+    origin: process.env.FRONTEND_URL || 'http://localhost:3000',
+    credentials: true
+}));
 app.use(express.json());
+app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '..')));
 
 // Configuração do Multer para upload de arquivos
@@ -61,8 +69,11 @@ const upload = multer({
 
 // Rota principal
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, '..', 'front_end.html'));
+    res.sendFile(path.join(__dirname, '..', 'index.html'));
 });
+
+// Rotas de autenticação
+app.use('/api/auth', authRoutes);
 
 // Upload de arquivo Excel
 app.post('/api/upload-excel', upload.single('excel'), async (req, res) => {
@@ -363,6 +374,63 @@ app.get('/api/tickets', async (req, res) => {
         res.status(500).json({
             success: false,
             error: 'Erro ao buscar tickets: ' + error.message
+        });
+    }
+});
+
+// Editar Data Source
+app.put('/api/data-sources/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { name } = req.body;
+        
+        if (!name) {
+            return res.status(400).json({
+                success: false,
+                error: 'Nome é obrigatório'
+            });
+        }
+
+        const sql = 'UPDATE DATA_SOURCES SET NAME = ?, UPDATED_AT = CURRENT_TIMESTAMP WHERE ID = ?';
+        await firebird.executeTransaction(sql, [name, id]);
+        
+        res.json({
+            success: true,
+            message: 'Data Source atualizado com sucesso'
+        });
+
+    } catch (error) {
+        console.error('❌ Erro ao atualizar data source:', error);
+        res.status(500).json({
+            success: false,
+            error: 'Erro ao atualizar data source: ' + error.message
+        });
+    }
+});
+
+// Excluir Data Source
+app.delete('/api/data-sources/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        
+        // Primeiro excluir todos os tickets associados
+        const deleteTicketsSQL = 'DELETE FROM TICKETS WHERE DATA_SOURCE = (SELECT NAME FROM DATA_SOURCES WHERE ID = ?)';
+        await firebird.executeTransaction(deleteTicketsSQL, [id]);
+        
+        // Depois excluir o data source
+        const deleteDataSourceSQL = 'DELETE FROM DATA_SOURCES WHERE ID = ?';
+        await firebird.executeTransaction(deleteDataSourceSQL, [id]);
+        
+        res.json({
+            success: true,
+            message: 'Data Source excluído com sucesso'
+        });
+
+    } catch (error) {
+        console.error('❌ Erro ao excluir data source:', error);
+        res.status(500).json({
+            success: false,
+            error: 'Erro ao excluir data source: ' + error.message
         });
     }
 });
